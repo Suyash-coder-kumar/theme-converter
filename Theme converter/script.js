@@ -1,28 +1,36 @@
 let btn = document.querySelector(".btn");
 
-function systemTheme(){
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches){
-        document.body.classList.remove("light");
-        document.body.classList.add("dark");
-    }else{
-        document.body.classList.remove("dark");
-        document.body.classList.add("light");
+
+function applyTheme() {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+        document.body.classList.add(savedTheme);
+    } else {
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.classList.add(systemPrefersDark ? 'dark' : 'light');
     }
 }
-
-systemTheme();
 
 function switchTheme() {
-    let theme = document.body.classList.contains("dark") ? "dark" : "light";
-    if (theme === "dark") {
-        document.body.classList.remove("dark");
-        document.body.classList.add("light");
-    } else {
-        document.body.classList.remove("light");
-        document.body.classList.add("dark");
-    }
+    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
+    document.body.classList.remove(currentTheme);
+    document.body.classList.add(newTheme);
+
+    localStorage.setItem('theme', newTheme);
 }
 
-btn.addEventListener("click", switchTheme);
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change",systemTheme);
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    const savedTheme = localStorage.getItem("theme");
+    if (!savedTheme) {
+        const systemTheme = e.matches ? 'dark' : 'light';
+        document.body.classList.remove('dark', 'light');
+        document.body.classList.add(systemTheme);
+    }
+});
+
+
+applyTheme();
+btn.addEventListener('click', switchTheme);
