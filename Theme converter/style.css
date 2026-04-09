@@ -1,0 +1,49 @@
+:root {
+  --bg-light: #fff;
+  --text-light: #1a1a1a;
+  --bg-dark: #1a1a1a;
+  --text-dark: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.light {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.btn {
+  padding: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow:6px 3px 20px 0px #ddb3b3;
+  background-color: #d0bcbc;
+  color: inherit;
+}
